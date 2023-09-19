@@ -57,14 +57,16 @@ class Department(models.Model):
     Represents a department in the system.
     """
 
+    class Meta:
+        verbose_name = "Department"
+        verbose_name_plural = "Departments"
+
     department_name = models.SlugField(
         max_length=255,
         unique=True,
         blank=False,
         null=False,
         help_text="Enter the name of the department.",
-        verbose_name="Department Name",
-        verbose_name_plural="Department Names",
     )
     company = models.ForeignKey(
         Company,
@@ -73,10 +75,6 @@ class Department(models.Model):
         related_query_name="department",
         help_text="Select the company for the department.",
     )
-
-    class Meta:
-        verbose_name = "Department"
-        verbose_name_plural = "Departments"
 
     def __str__(self):
         """

@@ -1,3 +1,30 @@
+"""
+This module contains serializers for the Company, Department, Role,
+and Employee models.
+
+Classes:
+    CompanySerializer: Serializes the Company model.
+    The fields that are serialized include the URL of the company instance,
+    the ID, the company name, the departments within the company,
+    the company registration number, and the company address.
+    
+    DepartmentSerializer: Serializes the Department model.
+    The fields that are serialized include the URL of the department instance,
+    the ID, the department name, the company to which the department belongs,
+    and the roles within the department.
+    
+    RoleSerializer: Serializes the Role model.
+    The fields that are serialized include the URL of the role instance,
+    the ID, the role name, the department to which the role belongs,
+    the duties associated with the role, and the employees who have this role.
+    
+    EmployeeSerializer: Serializes the Employee model.
+    The fields that are serialized include the URL of the employee instance,
+    the ID, the employee name, the employee ID, the date the employee started,
+    the date the employee left, and the role name of the employee.
+"""
+
+
 from rest_framework import serializers
 from .models import Company, Department, Role, Employee
 
