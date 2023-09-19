@@ -31,3 +31,5 @@ router.register(r"companies", CompanyViewSet)
 router.register(r"departments", DepartmentViewSet)
 router.register(r"roles", RoleViewSet)
 router.register(r"employees", EmployeeViewSet)
+
+urlpatterns = router.urls
