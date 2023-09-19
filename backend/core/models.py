@@ -14,17 +14,33 @@ The models also have a __str__ method that returns a string representation of th
 
 from django.db import models
 
+
 class Company(models.Model):
     """
     Represents a company in the system.
     """
-    company_name = models.SlugField(max_length=255, unique=True, blank=False, null=False, help_text="Enter the name of the company.")
-    company_registration_number = models.SlugField(max_length=255, unique=True, blank=False, null=False, help_text="Enter the registration number of the company.")
-    company_address = models.TextField(blank=False, null=False, help_text="Enter the address of the company.")
+
+    company_name = models.SlugField(
+        max_length=255,
+        unique=True,
+        blank=False,
+        null=False,
+        help_text="Enter the name of the company.",
+    )
+    company_registration_number = models.SlugField(
+        max_length=255,
+        unique=True,
+        blank=False,
+        null=False,
+        help_text="Enter the registration number of the company.",
+    )
+    company_address = models.TextField(
+        blank=False, null=False, help_text="Enter the address of the company."
+    )
 
     class Meta:
-        verbose_name = 'Company'
-        verbose_name_plural = 'Companies'
+        verbose_name = "Company"
+        verbose_name_plural = "Companies"
 
     def __str__(self):
         """
@@ -40,12 +56,27 @@ class Department(models.Model):
     """
     Represents a department in the system.
     """
-    department_name = models.SlugField(max_length=255, unique=True, blank=False, null=False, help_text="Enter the name of the department.", verbose_name="Department Name", verbose_name_plural="Department Names")
-    company = models.ForeignKey(Company, on_delete=models.PROTECT, related_name='departments', related_query_name='department', help_text="Select the company for the department.")
+
+    department_name = models.SlugField(
+        max_length=255,
+        unique=True,
+        blank=False,
+        null=False,
+        help_text="Enter the name of the department.",
+        verbose_name="Department Name",
+        verbose_name_plural="Department Names",
+    )
+    company = models.ForeignKey(
+        Company,
+        on_delete=models.PROTECT,
+        related_name="departments",
+        related_query_name="department",
+        help_text="Select the company for the department.",
+    )
 
     class Meta:
-        verbose_name = 'Department'
-        verbose_name_plural = 'Departments'
+        verbose_name = "Department"
+        verbose_name_plural = "Departments"
 
     def __str__(self):
         """
@@ -66,12 +97,27 @@ class Role(models.Model):
         department (Department): The department to which the role belongs.
     """
 
-    role_name = models.SlugField(max_length=100, primary_key=True, blank=False, null=False, help_text="Enter the name of the role.")
-    department = models.ForeignKey(Department, on_delete=models.CASCADE, related_name='roles', related_query_name='role', help_text="Select the department for the role.")
+    role_name = models.SlugField(
+        max_length=100,
+        primary_key=True,
+        blank=False,
+        null=False,
+        help_text="Enter the name of the role.",
+    )
+    department = models.ForeignKey(
+        Department,
+        on_delete=models.CASCADE,
+        related_name="roles",
+        related_query_name="role",
+        help_text="Select the department for the role.",
+    )
+    duties = models.TextField(
+        blank=False, null=False, help_text="Enter the duties of the role."
+    )
 
     class Meta:
-        verbose_name = 'Role'
-        verbose_name_plural = 'Roles'
+        verbose_name = "Role"
+        verbose_name_plural = "Roles"
 
     def __str__(self):
         """
@@ -95,11 +141,25 @@ class Employee(models.Model):
         role_name (ForeignKey): The role of the employee (ForeignKey to the `Role` model).
     """
 
-    employee_name = models.CharField(max_length=100, help_text="Enter the name of the employee")
-    employee_id = models.CharField(max_length=100, primary_key=True, help_text="Enter the ID of the employee")
-    date_started = models.DateField(blank=False, null=False, help_text="Enter the start date of the employee")
+    employee_name = models.CharField(
+        max_length=100, help_text="Enter the name of the employee"
+    )
+    employee_id = models.CharField(
+        max_length=100, primary_key=True, help_text="Enter the ID of the employee"
+    )
+    date_started = models.DateField(
+        blank=False, null=False, help_text="Enter the start date of the employee"
+    )
     date_left = models.DateField(help_text="Enter the end date of the employee")
-    role_name = models.ForeignKey(Role, on_delete=models.CASCADE, related_name='employees', related_query_name='employee', blank=False, null=False, help_text="Select the role of the employee")
+    role_name = models.ForeignKey(
+        Role,
+        on_delete=models.CASCADE,
+        related_name="employees",
+        related_query_name="employee",
+        blank=False,
+        null=False,
+        help_text="Select the role of the employee",
+    )
 
     def __str__(self):
         """
