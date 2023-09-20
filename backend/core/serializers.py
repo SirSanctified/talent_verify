@@ -44,6 +44,11 @@ class CompanySerializer(serializers.HyperlinkedModelSerializer):
             "company_registration_number",
             "company_address",
         ]
+        extra_kwargs = {
+            "company_registration_number": {"required": True},
+            "company_address": {"required": True},
+            "departments": {"required": False},
+        }
 
 
 class DepartmentSerializer(serializers.HyperlinkedModelSerializer):
@@ -54,6 +59,7 @@ class DepartmentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Department
         fields = ["url", "id", "department_name", "company", "roles"]
+        extra_kwargs = {"roles": {"required": False}}
 
 
 class RoleSerializer(serializers.HyperlinkedModelSerializer):
@@ -64,6 +70,7 @@ class RoleSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Role
         fields = ["url", "id", "role_name", "department", "duties", "employees"]
+        extra_kwargs = {"duties": {"required": False}, "employees": {"required": False}}
 
 
 class EmployeeSerializer(serializers.HyperlinkedModelSerializer):
@@ -82,3 +89,8 @@ class EmployeeSerializer(serializers.HyperlinkedModelSerializer):
             "date_left",
             "role_name",
         ]
+        extra_kwargs = {
+            "employee_id": {"required": True},
+            "date_started": {"required": True},
+            "role_name": {"required": False},
+        }
