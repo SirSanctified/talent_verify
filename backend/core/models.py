@@ -70,7 +70,7 @@ class Department(models.Model):
     )
     company = models.ForeignKey(
         Company,
-        on_delete=models.PROTECT,
+        on_delete=models.CASCADE,
         related_name="departments",
         related_query_name="department",
         help_text="Select the company for the department.",
