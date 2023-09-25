@@ -14,7 +14,13 @@ import { useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import { axiosInstance } from "../pages/Dashboard";
 
-export default function AddCompany({ classes, title, action, company, setCompanies }) {
+export default function AddCompany({
+  classes,
+  title,
+  action,
+  company,
+  setCompanies,
+}) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [companyName, setCompanyName] = useState(company?.company_name || "");
   const [companyAddress, setCompanyAddress] = useState(
