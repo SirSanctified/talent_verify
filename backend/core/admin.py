@@ -33,26 +33,22 @@ class EmployeeAdmin(admin.ModelAdmin):
         "employee_id",
         "date_started",
         "date_left",
-        "role_name",
     )
     list_filter = (
         "employee_name",
         "employee_id",
         "date_started",
         "date_left",
-        "role_name",
     )
     search_fields = (
         "employee_name",
         "employee_id",
         "date_started",
         "date_left",
-        "role_name",
     )
     ordering = (
         "employee_name",
         "employee_id",
         "date_started",
         "date_left",
-        "role_name",
     )

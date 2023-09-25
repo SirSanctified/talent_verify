@@ -26,6 +26,7 @@ Classes:
 
 
 from rest_framework import serializers
+from rest_framework.fields import empty
 from .models import Company, Department, Role, Employee
 
 
@@ -56,8 +57,16 @@ class DepartmentSerializer(serializers.HyperlinkedModelSerializer):
     Serializes a department object.
     """
 
+    def __init__(self, instance=None, data=empty, **kwargs):
+        if instance:
+            setattr(self.Meta, "depth", 1)
+        else:
+            setattr(self.Meta, "depth", 0)
+        super(DepartmentSerializer, self).__init__(instance, data, **kwargs)
+
     class Meta:
         model = Department
+        depth = 1
         fields = ["url", "id", "department_name", "company", "roles"]
         extra_kwargs = {"roles": {"required": False}}
 
@@ -67,9 +76,24 @@ class RoleSerializer(serializers.HyperlinkedModelSerializer):
     Serializes a role object.
     """
 
+    def __init__(self, instance=None, data=empty, **kwargs):
+        if instance:
+            setattr(self.Meta, "depth", 1)
+        else:
+            setattr(self.Meta, "depth", 0)
+        super(RoleSerializer, self).__init__(instance, data, **kwargs)
+
     class Meta:
         model = Role
-        fields = ["url", "id", "role_name", "department", "duties", "employees"]
+        depth = 1
+        fields = [
+            "url",
+            "id",
+            "role_name",
+            "department",
+            "duties",
+            "employees",
+        ]
         extra_kwargs = {"duties": {"required": False}, "employees": {"required": False}}
 
 
@@ -78,8 +102,16 @@ class EmployeeSerializer(serializers.HyperlinkedModelSerializer):
     Serializes an employee object.
     """
 
+    def __init__(self, instance=None, data=empty, **kwargs):
+        if instance:
+            setattr(self.Meta, "depth", 1)
+        else:
+            setattr(self.Meta, "depth", 0)
+        super(EmployeeSerializer, self).__init__(instance, data, **kwargs)
+
     class Meta:
         model = Employee
+        depth = 1
         fields = [
             "url",
             "id",
@@ -87,10 +119,10 @@ class EmployeeSerializer(serializers.HyperlinkedModelSerializer):
             "employee_id",
             "date_started",
             "date_left",
-            "role_name",
+            "role",
         ]
         extra_kwargs = {
             "employee_id": {"required": True},
             "date_started": {"required": True},
-            "role_name": {"required": False},
+            "role": {"required": False},
         }

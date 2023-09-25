@@ -20,7 +20,7 @@ class Company(models.Model):
     Represents a company in the system.
     """
 
-    company_name = models.SlugField(
+    company_name = models.CharField(
         max_length=255,
         unique=True,
         blank=False,
@@ -61,7 +61,7 @@ class Department(models.Model):
         verbose_name = "Department"
         verbose_name_plural = "Departments"
 
-    department_name = models.SlugField(
+    department_name = models.CharField(
         max_length=255,
         unique=True,
         blank=False,
@@ -95,9 +95,8 @@ class Role(models.Model):
         department (Department): The department to which the role belongs.
     """
 
-    role_name = models.SlugField(
+    role_name = models.CharField(
         max_length=100,
-        primary_key=True,
         blank=False,
         null=False,
         help_text="Enter the name of the role.",
@@ -110,7 +109,7 @@ class Role(models.Model):
         help_text="Select the department for the role.",
     )
     duties = models.TextField(
-        blank=False, null=False, help_text="Enter the duties of the role."
+        blank=False, null=True, help_text="Enter the duties of the role."
     )
 
     class Meta:
@@ -143,13 +142,13 @@ class Employee(models.Model):
         max_length=100, help_text="Enter the name of the employee"
     )
     employee_id = models.CharField(
-        max_length=100, primary_key=True, help_text="Enter the ID of the employee"
+        max_length=100, unique=True, help_text="Enter the ID of the employee"
     )
     date_started = models.DateField(
         blank=False, null=False, help_text="Enter the start date of the employee"
     )
     date_left = models.DateField(help_text="Enter the end date of the employee")
-    role_name = models.ForeignKey(
+    role = models.ForeignKey(
         Role,
         on_delete=models.CASCADE,
         related_name="employees",
